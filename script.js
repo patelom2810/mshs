@@ -178,7 +178,60 @@ function finalize(canvas, btn, loading) {
   try {
     const url = canvas.toDataURL("image/png");
     document.getElementById("resultImg").src     = url;
-    document.getElementById("downloadLink").href = url;
+    
+    const downloadLink = document.getElementById("downloadLink");
+    downloadLink.href = url;
+    
+    // Add event listener for download progress and auto-refresh
+    downloadLink.onclick = function(e) {
+      // Prevent default behavior to handle download manually
+      e.preventDefault();
+      
+      const link = this;
+      const downloadTextElement = document.getElementById("downloadText");
+      const progressBar = document.getElementById("downloadProgress");
+      
+      // Change to loading state
+      downloadTextElement.innerHTML = 'ડાઉનલોડ થાય છે... <span id="progressPercent">0%</span>';
+      link.classList.remove("hover:-translate-y-1", "hover:shadow-[0_10px_25px_rgba(37,99,235,0.4)]");
+      link.style.pointerEvents = "none";
+      
+      let progress = 0;
+      const progressPercent = document.getElementById("progressPercent");
+      
+      const interval = setInterval(() => {
+        // Randomly increase progress to simulate real downloading
+        progress += Math.random() * 15 + 5; 
+        if (progress >= 100) progress = 100;
+        
+        progressBar.style.width = `${progress}%`;
+        progressPercent.innerText = `${Math.floor(progress)}%`;
+        
+        if (progress === 100) {
+          clearInterval(interval);
+          
+          // Change color to indicate completion visually
+          progressBar.classList.remove("bg-green-500");
+          progressBar.classList.add("bg-emerald-600"); // Darker/more distinct green on complete
+          
+          downloadTextElement.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> ડાઉનલોડ પૂર્ણ`;
+          
+          // Programmatically trigger download
+          const tempLink = document.createElement("a");
+          tempLink.href = url;
+          tempLink.download = "madhavlal-photo.png";
+          document.body.appendChild(tempLink);
+          tempLink.click();
+          document.body.removeChild(tempLink);
+
+          // Auto refresh after 1.5 seconds after download completion
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
+        }
+      }, 150); // Updates every 150ms
+    };
+
     const rs = document.getElementById("resultSection");
     rs.style.display = "block";
     rs.scrollIntoView({ behavior: "smooth" });

@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ફોટો બનાવો – શ્રી માધવલાલ શાહ હાઈસ્કૂલ</title>
+  <link rel="icon" href="images/logo.png" type="image/png">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -114,9 +115,12 @@
       <img id="resultImg" src="" alt="Generated Poster" class="w-full block rounded-xl">
     </div>
     <a id="downloadLink" download="madhavlal-photo.png" 
-      class="block w-full mt-5 py-4 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-xl text-[16px] font-bold tracking-wide text-center cursor-pointer shadow-[0_6px_20px_rgba(22,163,74,0.3)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(22,163,74,0.4)] flex justify-center items-center gap-2">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-      ફોટો ડાઉનલોડ કરો
+      class="relative overflow-hidden block w-full mt-5 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl text-[16px] font-bold tracking-wide text-center cursor-pointer shadow-[0_6px_20px_rgba(37,99,235,0.3)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(37,99,235,0.4)] flex justify-center items-center gap-2">
+      <div id="downloadProgress" class="absolute top-0 left-0 h-full bg-black/20 w-0 transition-all duration-[50ms] z-0"></div>
+      <span id="downloadText" class="relative z-10 flex justify-center items-center gap-2">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        ફોટો ડાઉનલોડ કરો
+      </span>
     </a>
   </div>
 </div>
@@ -136,9 +140,9 @@
       
       <div class="bg-brand-purple-50/60 rounded-xl p-4 sm:p-5 text-[14px] leading-relaxed border border-brand-purple-m/10 flex flex-col gap-1.5 shadow-sm">
         <p class="font-bold text-gray-900 text-[16px] sm:text-[17px] mb-1">
-          અનિલભાઈ પરમાર <span class="text-[12px] sm:text-[13px] font-medium text-gray-600">(પ્રિન્સિપાલશ્રી)</span>
+          અનિલભાઈ સી. પરમાર <span class="text-[12px] sm:text-[13px] font-medium text-gray-600">(પ્રિન્સિપાલશ્રી)</span>
         </p>
-        <p class="text-gray-700 font-medium">માધવલાલ શાહ હાઈસ્કૂલ,</p>
+        <p class="text-gray-700 font-medium"> શ્રી માધવલાલ શાહ હાઈસ્કૂલ,</p>
         <p class="text-gray-600">બેઠક રોડ, ખંભાત</p>
         
         <div class="mt-3 pt-3 border-t border-brand-purple-m/15 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 font-bold text-brand-purple-d">
