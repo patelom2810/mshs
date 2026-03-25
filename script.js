@@ -60,9 +60,11 @@ function generatePoster() {
 
 // ── Load Gujarati font into canvas ───────────────────────────────────────────
 function loadGujaratiFontThenDraw(name, imgSrc, btn, loading) {
+  // Using Anek Gujarati font for the canvas text
   const face = new FontFace(
     "CanvasGuj",
-    "url(https://fonts.gstatic.com/s/notosansgujarati/v28/wlpWgx_HC1ti5ViekvcxnhMlCVo3f5pv.woff2)",
+    // This is the direct woff2 URL for Anek Gujarati 700 weight for drawing the text onto canvas
+    "url(https://fonts.gstatic.com/s/anekgujarati/v4/XoHo2YEz5sObqDygXG-1vys_wLdGz3Q.woff2)",
     { weight: "700" }
   );
   face.load()
@@ -137,7 +139,7 @@ function drawPoster(name, userImgSrc, btn, loading) {
     let fontSize = 62;
     const maxW   = 420;
     const setFont = () => {
-      ctx.font = `bold ${fontSize}px "CanvasGuj","Noto Sans Gujarati","Mukta",sans-serif`;
+      ctx.font = `bold ${fontSize}px "CanvasGuj","Anek Gujarati","Noto Sans Gujarati","Mukta",sans-serif`;
     };
     setFont();
     while (ctx.measureText(name).width > maxW && fontSize > 24) {

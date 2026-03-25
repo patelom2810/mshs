@@ -8,7 +8,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@100..800&family=Noto+Sans+Gujarati:wght@400;600;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@100..800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -17,7 +17,7 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Noto Sans Gujarati"', '"Poppins"', 'sans-serif'],
+            sans: ['"Anek Gujarati"', '"Poppins"', 'sans-serif'],
           },
           colors: {
             brand: {
@@ -47,25 +47,24 @@
 <div class="fixed inset-0 pointer-events-none z-[-1] bg-gradient-to-b from-white/60 to-transparent"></div>
 
 <!-- NAVBAR -->
-<div class="bg-white/90 backdrop-blur-md border-b-2 border-brand-purple-l py-3 px-4 sm:px-5 flex items-center justify-center gap-2.5 sm:gap-3.5 shadow-sm sticky top-0 z-50">
-  <img src="images/logo.png" alt="Logo" class="w-[44px] h-[44px] sm:w-[52px] sm:h-[52px] object-contain rounded-full" onerror="this.style.display='none'">
+<div class="bg-white/90 backdrop-blur-md border-b-2 border-brand-purple-l py-3 px-4 sm:px-6 flex items-center justify-start gap-4 shadow-sm sticky top-0 z-50">
+  <img src="images/logo.png" alt="Logo" class="w-[44px] h-[44px] sm:w-[56px] sm:h-[56px] object-contain rounded-full" onerror="this.style.display='none'">
   <div class="flex flex-col">
-    <span class="text-[clamp(9px,2.2vw,11px)] text-gray-500 font-normal">ધી કેમ્બે એજ્યુકેશન સોસાયટી સંચાલિત</span>
-    <span class="text-[clamp(13px,3.8vw,19px)] font-bold text-brand-purple-d leading-tight">શ્રી માધવલાલ શાહ હાઈસ્કૂલ, ખંભાત</span>
+    <span class="text-[clamp(10px,2.5vw,12px)] text-gray-500 font-normal">ધી કેમ્બે એજ્યુકેશન સોસાયટી સંચાલિત</span>
+    <span class="text-[clamp(14px,4vw,20px)] font-bold text-brand-purple-d leading-tight">શ્રી માધવલાલ શાહ હાઈસ્કૂલ, ખંભાત</span>
   </div>
 </div>
 
 <!-- MAIN -->
 <div class="max-w-[500px] w-full mx-auto mt-6 px-4">
   <div class="bg-white/95 backdrop-blur-sm border border-gray-200/60 rounded-2xl sm:rounded-[20px] p-5 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.06)] relative overflow-hidden">
-    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-purple-d via-brand-purple-m to-brand-brown-mid"></div>
     
     <p class="text-center text-[16px] sm:text-[18px] font-bold text-brand-purple-d mb-5 pb-4 border-b border-gray-100">🎓 તમારો પ્રવેશ ફોટો બનાવો</p>
 
     <!-- FORM SECTION -->
     <div class="text-left">
       <label class="block text-[13.5px] font-bold text-gray-700 mb-1.5">તમારું નામ (ગુજરાતી અથવા English)</label>
-      <input id="name" type="text" placeholder="દા.ત. Ravi Patel અથવા રવિ પટેલ" 
+      <input id="name" type="text" placeholder="તમારું નામ અહીં લખો" 
         class="w-full py-3 px-4 bg-gray-50/50 border border-gray-200 rounded-xl text-[14.5px] sm:text-[15px] text-gray-900 outline-none transition-all duration-200 focus:bg-white focus:border-brand-purple-m focus:ring-4 focus:ring-brand-purple-l placeholder:text-gray-400 mb-5">
 
       <label class="block text-[13.5px] font-bold text-gray-700 mb-1.5">તમારો ફોટો પસંદ કરો</label>
@@ -125,7 +124,6 @@
 <!-- INFO / FOOTER -->
 <div class="max-w-[550px] w-full mx-auto px-4 pb-12 mt-8">
   <div class="bg-white/80 backdrop-blur-md rounded-2xl border border-brand-purple-m/20 shadow-lg relative overflow-hidden text-center">
-    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-purple-m to-brand-brown-mid"></div>
     
     <div class="p-5 sm:p-6">
       <p class="font-bold text-brand-purple-d text-[15px] sm:text-[16px] mb-2 leading-relaxed">
