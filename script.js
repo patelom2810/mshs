@@ -30,6 +30,11 @@ const RING_INNER_WIDTH  = 4;
 document.getElementById("imageInput").addEventListener("change", function () {
   const file = this.files[0];
   if (!file) return;
+  
+  // Hide the previous result when a new photo is uploaded
+  const rs = document.getElementById("resultSection");
+  if (rs) rs.style.display = "none";
+
   document.getElementById("fileName").textContent = "📎 " + file.name;
   const r = new FileReader();
   r.onload = e => {
@@ -152,7 +157,7 @@ function drawPoster(name, userImgSrc, btn, loading) {
     ctx.restore();
 
     // 6 — Export
-    finalize(canvas, btn, loading);
+    finalize(canvas, btn, loading, name);
   }
 
   bg.onload  = tryDraw;
@@ -171,7 +176,7 @@ function drawPoster(name, userImgSrc, btn, loading) {
   userImg.src         = userImgSrc;
 }
 
-function finalize(canvas, btn, loading) {
+function finalize(canvas, btn, loading, userName) {
   btn.disabled          = false;
   btn.classList.remove("opacity-50", "cursor-not-allowed");
   loading.style.display = "none";
@@ -180,6 +185,17 @@ function finalize(canvas, btn, loading) {
     document.getElementById("resultImg").src     = url;
     
     const downloadLink = document.getElementById("downloadLink");
+    const downloadTextElement = document.getElementById("downloadText");
+    const progressBar = document.getElementById("downloadProgress");
+
+    // Reset download button state in case this is the second generation
+    downloadTextElement.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> ફોટો ડાઉનલોડ કરો`;
+    progressBar.style.width = '0%';
+    progressBar.classList.remove("bg-emerald-600", "bg-green-500");
+    progressBar.classList.add("bg-black/20");
+    downloadLink.classList.add("hover:-translate-y-1", "hover:shadow-[0_10px_25px_rgba(37,99,235,0.4)]");
+    downloadLink.style.pointerEvents = "auto";
+    
     downloadLink.href = url;
     
     // Add event listener for download progress and auto-refresh
@@ -219,7 +235,8 @@ function finalize(canvas, btn, loading) {
           // Programmatically trigger download
           const tempLink = document.createElement("a");
           tempLink.href = url;
-          tempLink.download = "madhavlal-photo.png";
+          const safeName = userName ? userName.trim().replace(/\s+/g, '_') : 'photo';
+          tempLink.download = `${safeName}.png`;
           document.body.appendChild(tempLink);
           tempLink.click();
           document.body.removeChild(tempLink);
