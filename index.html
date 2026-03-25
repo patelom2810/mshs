@@ -5,513 +5,184 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>ફોટો બનાવો – શ્રી માધવલાલ શાહ હાઈસ્કૂલ</title>
 
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@100..800&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Anek+Gujarati:wght@100..800&family=Noto+Sans+Gujarati:wght@400;600;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans Gujarati"', '"Poppins"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              purple: '#6b21a8',
+              'purple-d': '#4c1d95',
+              'purple-m': '#7c3aed',
+              'purple-l': '#ede9fe',
+              brown: '#92400e',
+              'brown-mid': '#b45309',
+            }
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --font: 'Noto Sans Gujarati', 'Poppins', sans-serif;
-      --purple:    #6b21a8;
-      --purple-d:  #4c1d95;
-      --purple-m:  #7c3aed;
-      --purple-l:  #ede9fe;
-      --brown:     #92400e;
-      --brown-mid: #b45309;
-      --brown-l:   #fef3c7;
-      --white:     #ffffff;
-      --gray-50:   #f9fafb;
-      --gray-100:  #f3f4f6;
-      --gray-200:  #e5e7eb;
-      --gray-500:  #6b7280;
-      --gray-700:  #374151;
-      --gray-900:  #111827;
-    }
-
-    body {
-      font-family: var(--font);
-      background: var(--gray-50);
-      min-height: 100vh;
-      overflow-x: hidden; /* Prevent horizontal scroll on small screens */
-    }
-
-    /* ── NAVBAR ── */
-    .navbar {
-      background: #ffffff;
-      border-bottom: 2px solid var(--purple-l);
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      box-shadow: 0 2px 12px rgba(109,40,217,0.08);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .navbar img {
-      width: 52px; height: 52px;
-      object-fit: contain;
-      border-radius: 50%;
-    }
-    .navbar-text { display: flex; flex-direction: column; }
-    .navbar-sub {
-      font-size: clamp(9px, 2.2vw, 11px);
-      color: var(--gray-500);
-      font-weight: 400;
-    }
-    .navbar-title {
-      font-size: clamp(13px, 3.8vw, 19px);
-      font-weight: 700;
-      color: var(--purple-d);
-      line-height: 1.25;
-    }
-
-    /* ── PAGE WRAPPER ── */
-    .main {
-      max-width: 500px;
-      margin: 32px auto;
-      padding: 0 16px 60px;
-    }
-
-    /* ── FORM CARD ── */
-    .card {
-      background: var(--white);
-      border: 1px solid var(--gray-200);
-      border-radius: 20px;
-      padding: 28px 24px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-    }
-
-    .card-title {
-      text-align: center;
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--purple-d);
-      margin-bottom: 22px;
-      padding-bottom: 16px;
-      border-bottom: 1.5px solid var(--purple-l);
-    }
-
-    /* ── LABELS & INPUTS ── */
-    .field-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--gray-700);
-      margin-bottom: 6px;
-      margin-top: 18px;
-    }
-    .field-label:first-of-type { margin-top: 0; }
-
-    input[type="text"] {
-      width: 100%;
-      padding: 12px 14px;
-      background: var(--white);
-      border: 1.5px solid var(--gray-200);
-      border-radius: 10px;
-      font-family: var(--font);
-      font-size: 15px;
-      color: var(--gray-900);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    input[type="text"]:focus { border-color: var(--purple-m); }
-    input[type="text"]::placeholder { color: #9ca3af; }
-
-    /* ── FILE UPLOAD ── */
-    #imageInput { display: none; }
-    .file-label {
-      display: flex;
-      align-items: center;
-      justify-content: center; /* Center the icon and text */
-      gap: 10px;
-      padding: 12px 14px;
-      background: var(--gray-50);
-      border: 1.5px dashed var(--gray-200);
-      border-radius: 10px;
-      cursor: pointer;
-      color: var(--purple-m);
-      font-size: 14px;
-      font-weight: 600;
-      transition: background 0.2s, border-color 0.2s;
-    }
-    .file-label:hover {
-      background: var(--purple-l);
-      border-color: var(--purple-m);
-    }
-    #fileName {
-      font-size: 12px;
-      color: var(--gray-500);
-      margin-top: 5px;
-      text-align: center; /* Center the selected file name */
-    }
-
-    /* ── PHOTO PREVIEW ── */
-    .preview-wrap {
-      display: none;
-      justify-content: center;
-      margin-top: 14px;
-    }
-    .preview-wrap img {
-      width: 100px; height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--brown-mid);
-      box-shadow: 0 4px 14px rgba(146,64,14,0.22);
-    }
-
-    /* ── GENERATE BUTTON ── */
-    .btn-generate {
-      width: 100%;
-      margin-top: 24px;
-      padding: 14px;
-      background: linear-gradient(135deg, var(--purple-d), var(--purple-m));
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-family: var(--font);
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 4px 16px rgba(109,40,217,0.3);
-      transition: transform 0.15s, box-shadow 0.15s;
-    }
-    .btn-generate:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(109,40,217,0.38);
-    }
-    .btn-generate:disabled { opacity: 0.55; cursor: not-allowed; }
-
-    /* ── LOADING ── */
-    .loading {
-      display: none;
-      text-align: center;
-      color: var(--purple-m);
-      font-size: 14px;
-      font-weight: 600;
-      margin-top: 14px;
-    }
-    .spinner {
-      display: inline-block;
-      width: 14px; height: 14px;
-      border: 2px solid var(--purple-l);
-      border-top-color: var(--purple-m);
-      border-radius: 50%;
-      animation: spin 0.75s linear infinite;
-      margin-left: 8px;
-      vertical-align: middle;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* ── RESULT ── */
-    .result-section { display: none; margin-top: 26px; }
-    .result-title {
-      text-align: center;
-      font-size: 15px;
-      font-weight: 700;
-      color: #15803d;
-      margin-bottom: 12px;
-    }
-    .result-img-wrap {
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid var(--gray-200);
-      box-shadow: 0 6px 28px rgba(0,0,0,0.10);
-    }
-    .result-img-wrap img { width: 100%; display: block; }
-
-    .btn-download {
-      display: block;
-      width: 100%;
-      margin-top: 12px;
-      padding: 13px;
-      background: linear-gradient(135deg, #15803d, #16a34a);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-family: var(--font);
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(22,163,74,0.30);
-      transition: transform 0.15s;
-    }
-    .btn-download:hover { transform: translateY(-2px); }
-
-    canvas { display: none; }
-
-    /* ── RESPONSIVE DESIGN FOR MOBILE ── */
-    @media (max-width: 480px) {
-      .main {
-        margin: 16px auto;
-        padding: 0 12px 40px;
-      }
-      .card {
-        padding: 20px 16px;
-        border-radius: 16px;
-      }
-      .navbar {
-        padding: 10px 12px;
-        gap: 10px;
-      }
-      .navbar img {
-        width: 44px; height: 44px;
-      }
-      input[type="text"] {
-        padding: 10px 12px;
-        font-size: 14px;
-      }
-      .btn-generate, .btn-download {
-        padding: 12px;
-        font-size: 15px;
-      }
-    }
+    /* Prevents pull-to-refresh and horiz-scroll on mobile */
+    body { overscroll-behavior-y: none; }
   </style>
 </head>
-<body>
+<body class="bg-gray-50 min-h-screen overflow-x-hidden text-gray-900 font-sans relative">
+
+<!-- Background Grid Pattern -->
+<div class="fixed inset-0 pointer-events-none z-[-1] opacity-[0.4]" 
+     style="background-image: radial-gradient(#6b21a8 1px, transparent 1px); background-size: 24px 24px;">
+</div>
+<div class="fixed inset-0 pointer-events-none z-[-1] bg-gradient-to-b from-white/60 to-transparent"></div>
 
 <!-- NAVBAR -->
-<div class="navbar">
-  <img src="images/logo.png" alt="Logo" onerror="this.style.display='none'">
-  <div class="navbar-text">
-    <span class="navbar-sub">ધી કેમ્બે એજ્યુકેશન સોસાયટી સંચાલિત</span>
-    <span class="navbar-title">શ્રી માધવલાલ શાહ હાઈસ્કૂલ, ખંભાત</span>
+<div class="bg-white/90 backdrop-blur-md border-b-2 border-brand-purple-l py-3 px-4 sm:px-5 flex items-center justify-center gap-2.5 sm:gap-3.5 shadow-sm sticky top-0 z-50">
+  <img src="images/logo.png" alt="Logo" class="w-[44px] h-[44px] sm:w-[52px] sm:h-[52px] object-contain rounded-full" onerror="this.style.display='none'">
+  <div class="flex flex-col">
+    <span class="text-[clamp(9px,2.2vw,11px)] text-gray-500 font-normal">ધી કેમ્બે એજ્યુકેશન સોસાયટી સંચાલિત</span>
+    <span class="text-[clamp(13px,3.8vw,19px)] font-bold text-brand-purple-d leading-tight">શ્રી માધવલાલ શાહ હાઈસ્કૂલ, ખંભાત</span>
   </div>
 </div>
 
 <!-- MAIN -->
-<div class="main">
-  <div class="card">
-    <p class="card-title">🎓 તમારો પ્રવેશ ફોટો બનાવો</p>
+<div class="max-w-[500px] w-full mx-auto mt-6 px-4">
+  <div class="bg-white/95 backdrop-blur-sm border border-gray-200/60 rounded-2xl sm:rounded-[20px] p-5 sm:p-7 shadow-[0_8px_30px_rgba(0,0,0,0.06)] relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-purple-d via-brand-purple-m to-brand-brown-mid"></div>
+    
+    <p class="text-center text-[16px] sm:text-[18px] font-bold text-brand-purple-d mb-5 pb-4 border-b border-gray-100">🎓 તમારો પ્રવેશ ફોટો બનાવો</p>
 
-    <label class="field-label">તમારું નામ (ગુજરાતી અથવા English)</label>
-    <input id="name" type="text" placeholder="તમારું નામ અહીં લખો...">
+    <!-- FORM SECTION -->
+    <div class="text-left">
+      <label class="block text-[13.5px] font-bold text-gray-700 mb-1.5">તમારું નામ (ગુજરાતી અથવા English)</label>
+      <input id="name" type="text" placeholder="દા.ત. Ravi Patel અથવા રવિ પટેલ" 
+        class="w-full py-3 px-4 bg-gray-50/50 border border-gray-200 rounded-xl text-[14.5px] sm:text-[15px] text-gray-900 outline-none transition-all duration-200 focus:bg-white focus:border-brand-purple-m focus:ring-4 focus:ring-brand-purple-l placeholder:text-gray-400 mb-5">
 
-    <label class="field-label">તમારો ફોટો પસંદ કરો</label>
-    <label class="file-label" for="imageInput">
-      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-        <polyline points="17 8 12 3 7 8"/>
-        <line x1="12" y1="3" x2="12" y2="15"/>
-      </svg>
-      ફોટો અપલોડ કરો (JPG / PNG)
-    </label>
-    <input id="imageInput" type="file" accept="image/*">
-    <div id="fileName">કોઈ ફોટો પસંદ નથી</div>
+      <label class="block text-[13.5px] font-bold text-gray-700 mb-1.5">તમારો ફોટો પસંદ કરો</label>
+      <label for="imageInput" 
+        class="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-brand-purple-50/30 border-[1.5px] border-dashed border-brand-purple-m/40 rounded-xl cursor-pointer text-brand-purple-m transition-all duration-200 hover:bg-brand-purple-50 hover:border-brand-purple-m hover:shadow-md">
+        <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="mb-1">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="17 8 12 3 7 8"/>
+          <line x1="12" y1="3" x2="12" y2="15"/>
+        </svg>
+        <span class="text-[14px] font-bold">ફોટો અપલોડ કરો</span>
+        <span class="text-[11px] font-normal text-gray-500">(ફક્ત JPG અથવા PNG ગ્રાહ્ય)</span>
+      </label>
+      <input id="imageInput" type="file" accept="image/*" class="hidden">
+      <div id="fileName" class="text-[12px] font-medium text-brand-purple-d mt-2 text-center bg-brand-purple-l rounded-full py-1 px-3 w-fit mx-auto hidden"></div>
 
-    <div class="preview-wrap" id="previewWrap">
-      <img id="previewImg" src="" alt="Preview">
+      <!-- PREVIEW -->
+      <div id="previewWrap" class="hidden justify-center mt-5">
+        <div class="relative">
+          <img id="previewImg" src="" alt="Preview" class="w-[110px] h-[110px] rounded-full object-cover border-[3.5px] border-brand-brown-mid shadow-[0_8px_16px_rgba(180,83,9,0.2)]">
+          <div class="absolute -bottom-1 -right-1 bg-green-500 text-white rounded-full p-1 border-2 border-white">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </div>
+      </div>
+
+      <button id="generateBtn" onclick="generatePoster()" 
+        class="w-full mt-7 py-3.5 bg-gradient-to-r from-brand-purple-d to-brand-purple-m text-white rounded-xl text-[16px] font-bold tracking-wide cursor-pointer shadow-[0_6px_20px_rgba(109,40,217,0.35)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(109,40,217,0.45)] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-none flex justify-center items-center gap-2">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+        ફોટો બનાવો
+      </button>
+      
+      <div id="loading" class="hidden text-center text-brand-purple-m text-[14px] font-bold mt-4 animate-pulse">
+        ફોટો બનાવવાની પ્રક્રિયા ચાલુ છે... 
+        <span class="inline-block w-4 h-4 border-2 border-brand-purple-l border-t-brand-purple-d rounded-full animate-spin ml-2 align-middle"></span>
+      </div>
     </div>
-
-    <button class="btn-generate" onclick="generatePoster()">✨ ફોટો બનાવો</button>
-    <div class="loading" id="loading">ફોટો બનાવી રહ્યા છે... <span class="spinner"></span></div>
   </div>
 
-  <!-- RESULT -->
-  <div class="result-section" id="resultSection">
-    <p class="result-title">✅ ફોટો તૈયાર છે!</p>
-    <div class="result-img-wrap">
-      <img id="resultImg" src="" alt="Generated Poster">
+  <!-- RESULT SECTION -->
+  <div id="resultSection" class="hidden mt-8 mb-4">
+    <div class="bg-green-50 text-green-800 rounded-xl p-3 mb-4 border border-green-200 flex items-center justify-center gap-2 shadow-sm font-bold text-[14.5px]">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      તમારો પર્સનલાઈઝ્ડ ફોટો તૈયાર છે!
     </div>
-    <a id="downloadLink" class="btn-download" download="madhavlal-photo.png">⬇️ ડાઉનલોડ કરો</a>
+    <div class="rounded-2xl overflow-hidden border border-gray-200/80 shadow-[0_12px_35px_rgba(0,0,0,0.15)] bg-white p-2">
+      <img id="resultImg" src="" alt="Generated Poster" class="w-full block rounded-xl">
+    </div>
+    <a id="downloadLink" download="madhavlal-photo.png" 
+      class="block w-full mt-5 py-4 bg-gradient-to-r from-green-600 to-green-500 text-white rounded-xl text-[16px] font-bold tracking-wide text-center cursor-pointer shadow-[0_6px_20px_rgba(22,163,74,0.3)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(22,163,74,0.4)] flex justify-center items-center gap-2">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+      ફોટો ડાઉનલોડ કરો
+    </a>
   </div>
 </div>
 
-<canvas id="canvas" width="1080" height="1350"></canvas>
+<!-- INFO / FOOTER -->
+<div class="max-w-[550px] w-full mx-auto px-4 pb-12 mt-8">
+  <div class="bg-white/80 backdrop-blur-md rounded-2xl border border-brand-purple-m/20 shadow-lg relative overflow-hidden text-center">
+    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-purple-m to-brand-brown-mid"></div>
+    
+    <div class="p-5 sm:p-6">
+      <p class="font-bold text-brand-purple-d text-[15px] sm:text-[16px] mb-2 leading-relaxed">
+        આણંદ જિલ્લાની સર્વશ્રેષ્ઠ શાળામાં ધોરણ 6 થી 12 માં એડમિશનની પ્રક્રિયા ચાલુ થઈ ગયેલ છે..
+      </p>
+      
+      <p class="text-[13.5px] sm:text-[14.5px] mb-5 text-brand-brown-mid font-semibold leading-relaxed">
+        વિદ્યાર્થીમિત્રો, આપ આપનું એડમિશન મેળવવા માગતા હો તો આજે જ સંપર્ક કરશો..
+      </p>
+      
+      <div class="bg-brand-purple-50/60 rounded-xl p-4 sm:p-5 text-[14px] leading-relaxed border border-brand-purple-m/10 flex flex-col gap-1.5 shadow-sm">
+        <p class="font-bold text-gray-900 text-[16px] sm:text-[17px] mb-1">
+          અનિલભાઈ પરમાર <span class="text-[12px] sm:text-[13px] font-medium text-gray-600">(પ્રિન્સિપાલશ્રી)</span>
+        </p>
+        <p class="text-gray-700 font-medium">માધવલાલ શાહ હાઈસ્કૂલ,</p>
+        <p class="text-gray-600">બેઠક રોડ, ખંભાત</p>
+        
+        <div class="mt-3 pt-3 border-t border-brand-purple-m/15 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 font-bold text-brand-purple-d">
+          <a href="tel:+919824533866" class="flex items-center gap-1.5 hover:text-brand-purple-m transition-colors">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            મો: +91 98245 33866
+          </a>
+          <span class="hidden sm:block text-brand-purple-m/30 text-lg leading-none">|</span>
+          <a href="tel:02698220326" class="flex items-center gap-1.5 hover:text-brand-purple-m transition-colors">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            ઓફિસ: 02698220326
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
+<canvas id="canvas" width="1080" height="1350" class="hidden"></canvas>
+
+<!-- Ensure we handle name preview text dynamically -->
 <script>
-/*
- * Pixel-calibrated values for bg.jpg (1080×1350):
- *
- * Available photo area: y=435 (after school strip) → y=1050 (before contact)
- * Left column: cx≈240
- *
- * Original circle: cx=250, cy≈647, r≈140  (scanned from poster)
- * Updated (per user): move photo DOWN + increase size
- *   cx=240, cy=710, r=195
- *   Circle top:  710-195 = 515  ✓ (well below strip at y=435)
- *   Circle bottom: 710+195 = 905
- *   Name at: y=960
- *   Space before contact (y≈1050): 90px ✓
- *
- * Ring: BROWN border (no glow/glass)
- */
-const PHOTO_CX = 240;
-const PHOTO_CY = 710;   // moved down from 650
-const PHOTO_R  = 195;
-const NAME_X   = 240;
-const NAME_Y   = 965;
-
-// Brown ring colors
-const RING_OUTER_COLOR  = "#92400e";   // dark brown
-const RING_INNER_COLOR  = "#d97706";   // amber/gold-brown
-const RING_OUTER_WIDTH  = 10;
-const RING_INNER_WIDTH  = 4;
-
-// ── File preview ────────────────────────────────────────────────────────────
-document.getElementById("imageInput").addEventListener("change", function () {
-  const file = this.files[0];
-  if (!file) return;
-  document.getElementById("fileName").textContent = "📎 " + file.name;
-  const r = new FileReader();
-  r.onload = e => {
-    document.getElementById("previewImg").src = e.target.result;
-    document.getElementById("previewWrap").style.display = "flex";
-  };
-  r.readAsDataURL(file);
-});
-
-// ── Generate ─────────────────────────────────────────────────────────────────
-function generatePoster() {
-  const name = document.getElementById("name").value.trim();
-  const file = document.getElementById("imageInput").files[0];
-  if (!name) { alert("કૃપા કરી નામ લખો ✏️"); return; }
-  if (!file)  { alert("કૃપા કરી ફોટો પસંદ કરો 📷"); return; }
-  if (file.size > 5 * 1024 * 1024) { alert("ફોટો 5MB થી નાનો હોવો જોઈએ"); return; }
-
-  const btn     = document.querySelector(".btn-generate");
-  const loading = document.getElementById("loading");
-  btn.disabled  = true;
-  loading.style.display = "block";
-
-  const reader = new FileReader();
-  reader.onload = e => loadGujaratiFontThenDraw(name, e.target.result, btn, loading);
-  reader.readAsDataURL(file);
-}
-
-// ── Load Gujarati font into canvas ───────────────────────────────────────────
-function loadGujaratiFontThenDraw(name, imgSrc, btn, loading) {
-  const face = new FontFace(
-    "CanvasGuj",
-    "url(https://fonts.gstatic.com/s/notosansgujarati/v28/wlpWgx_HC1ti5ViekvcxnhMlCVo3f5pv.woff2)",
-    { weight: "700" }
-  );
-  face.load()
-    .then(f => document.fonts.add(f))
-    .catch(() => {/* silent fallback */})
-    .finally(() => drawPoster(name, imgSrc, btn, loading));
-}
-
-// ── Core canvas draw ──────────────────────────────────────────────────────────
-function drawPoster(name, userImgSrc, btn, loading) {
-  const canvas = document.getElementById("canvas");
-  const ctx    = canvas.getContext("2d");
-
-  const bg      = new Image();
-  const userImg = new Image();
-  let loaded    = 0;
-
-  function tryDraw() {
-    if (++loaded < 2) return;
-
-    ctx.clearRect(0, 0, 1080, 1350);
-
-    // 1 — Background
-    if (bg.naturalWidth > 0) {
-      ctx.drawImage(bg, 0, 0, 1080, 1350);
-    } else {
-      ctx.fillStyle = "#f8f5ff";
-      ctx.fillRect(0, 0, 1080, 1350);
-    }
-
-    const cx = PHOTO_CX;
-    const cy = PHOTO_CY;
-    const r  = PHOTO_R;
-
-    // 2 — Circular user photo (object-fit: cover)
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, r, 0, Math.PI * 2);
-    ctx.clip();
-
-    const iw   = userImg.naturalWidth  || userImg.width  || 1;
-    const ih   = userImg.naturalHeight || userImg.height || 1;
-    const side = Math.min(iw, ih);
-    const sx   = (iw - side) / 2;
-    const sy   = (ih - side) / 2;
-    ctx.drawImage(userImg, sx, sy, side, side, cx - r, cy - r, r * 2, r * 2);
-    ctx.restore();
-
-    // 3 — Brown outer ring (solid, no glow)
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, r + RING_OUTER_WIDTH / 2 + 2, 0, Math.PI * 2);
-    ctx.strokeStyle = RING_OUTER_COLOR;
-    ctx.lineWidth   = RING_OUTER_WIDTH;
-    ctx.stroke();
-    ctx.restore();
-
-    // 4 — Thin amber inner accent ring
-    ctx.save();
-    ctx.beginPath();
-    ctx.arc(cx, cy, r + RING_OUTER_WIDTH + RING_INNER_WIDTH / 2 + 1, 0, Math.PI * 2);
-    ctx.strokeStyle = RING_INNER_COLOR;
-    ctx.lineWidth   = RING_INNER_WIDTH;
-    ctx.stroke();
-    ctx.restore();
-
-    // 5 — Name text
-    ctx.save();
-    ctx.textAlign    = "center";
-    ctx.textBaseline = "middle";
-
-    let fontSize = 62;
-    const maxW   = 420;
-    const setFont = () => {
-      ctx.font = `bold ${fontSize}px "CanvasGuj","Noto Sans Gujarati","Mukta",sans-serif`;
+  document.getElementById("imageInput").addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file) return;
+    
+    // Show File name
+    const fileNameDiv = document.getElementById("fileName");
+    fileNameDiv.textContent = file.name;
+    fileNameDiv.classList.remove("hidden");
+    fileNameDiv.classList.add("block");
+    
+    // Process Preview
+    const r = new FileReader();
+    r.onload = e => {
+      document.getElementById("previewImg").src = e.target.result;
+      document.getElementById("previewWrap").style.display = "flex";
     };
-    setFont();
-    while (ctx.measureText(name).width > maxW && fontSize > 24) {
-      fontSize -= 2;
-      setFont();
-    }
-
-    ctx.fillStyle = "#111111";
-    ctx.fillText(name, NAME_X, NAME_Y);
-    ctx.restore();
-
-    // 6 — Export
-    finalize(canvas, btn, loading);
-  }
-
-  bg.onload  = tryDraw;
-  bg.onerror = tryDraw;
-  userImg.onload  = tryDraw;
-  userImg.onerror = () => {
-    btn.disabled = false;
-    loading.style.display = "none";
-    alert("ફોટો લોડ ન થઈ શક્યો. ફરી પ્રયાસ કરો.");
-  };
-
-  bg.crossOrigin      = "anonymous";
-  userImg.crossOrigin = "anonymous";
-  bg.src              = "images/bg.jpg";
-  userImg.src         = userImgSrc;
-}
-
-function finalize(canvas, btn, loading) {
-  btn.disabled          = false;
-  loading.style.display = "none";
-  try {
-    const url = canvas.toDataURL("image/png");
-    document.getElementById("resultImg").src     = url;
-    document.getElementById("downloadLink").href = url;
-    const rs = document.getElementById("resultSection");
-    rs.style.display = "block";
-    rs.scrollIntoView({ behavior: "smooth" });
-  } catch (err) {
-    console.error(err);
-    alert("Download error — VS Code Live Server વાપરો.");
-  }
-}
+    r.readAsDataURL(file);
+  });
 </script>
+<script src="script.js"></script>
 
 </body>
 </html>
