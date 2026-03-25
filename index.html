@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="gu">
+<head>
+  <meta charset="UTF-8">
+  <title>ફોટો બનાવો</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Gujarati Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Noto Sans Gujarati', sans-serif; }
+  </style>
+</head>
+
+<body class="bg-gray-100">
+
+<!-- 🔷 NAVBAR -->
+<div class="bg-purple-700 text-white p-4 flex items-center justify-center gap-3 shadow-lg">
+  <img src="images/logo.png" class="w-10 h-10">
+  <h1 class="text-lg font-bold">શ્રી માધવલાલ શાહ હાઈસ્કૂલ, ખંભાત</h1>
+</div>
+
+<!-- 🔷 MAIN CARD -->
+<div class="flex justify-center mt-10">
+  <div class="bg-white p-6 rounded-xl shadow-lg w-full max-w-md">
+
+    <input id="name" type="text" placeholder="તમારું નામ લખો"
+      class="w-full p-2 border rounded mb-3">
+
+    <input id="imageInput" type="file" accept="image/*"
+      class="w-full mb-3">
+
+    <button onclick="generatePoster()"
+      class="w-full bg-purple-600 text-white p-2 rounded hover:bg-purple-700">
+      તમારો ફોટો બનાવો
+    </button>
+
+  </div>
+</div>
+
+<!-- Canvas -->
+<canvas id="canvas" width="1080" height="1350" class="hidden"></canvas>
+
+<script>
+function generatePoster() {
+  const name = document.getElementById("name").value;
+  const fileInput = document.getElementById("imageInput");
+  const file = fileInput.files[0];
+
+  if (!name || !file) {
+    alert("નામ અને ફોટો અપલોડ કરો");
+    return;
+  }
+
+  // 🔴 5MB Limit
+  const maxFileSize = 5 * 1024 * 1024;
+  const recommended = 100 * 1024;
+
+  if (file.size > maxFileSize) {
+    alert("ફોટો 5MB થી મોટો નથી હોવો જોઈએ ❌");
+    return;
+  }
+
+  if (file.size > recommended) {
+    const ok = confirm("ફોટો 100KB થી મોટો છે. Continue કરશો?");
+    if (!ok) return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = function(e) {
+
+    // Save data
+    localStorage.setItem("userName", name);
+    localStorage.setItem("userImage", e.target.result);
+
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    const bg = new Image();
+    const logo = new Image();
+    const userImg = new Image();
+
+    let loadedCount = 0;
+    const checkDependencies = () => {
+      loadedCount++;
+      if (loadedCount === 3) {
+        // Background
+        ctx.drawImage(bg, 0, 0, 1080, 1350);
+
+        // Logo (top-left)
+        ctx.drawImage(logo, 40, 40, 120, 120);
+
+        // Circle Photo (Aspect ratio fix & center adjust)
+        const x = 240;   // 👈 Center X
+        const y = 570;   // 👈 Center Y
+        const r = 145;   // 👈 Radius
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.clip();
+
+        // Crop image correctly without squishing it (like object-fit: cover)
+        const minSize = Math.min(userImg.width, userImg.height);
+        const sx = (userImg.width - minSize) / 2;
+        const sy = (userImg.height - minSize) / 2;
+        
+        ctx.drawImage(userImg, sx, sy, minSize, minSize, x - r, y - r, r * 2, r * 2);
+        ctx.restore();
+
+        // Name (below photo)
+        ctx.fillStyle = "#000";
+        ctx.font = "bold 55px 'Noto Sans Gujarati'";
+        ctx.textAlign = "center";
+        ctx.fillText(name, x, y + 225);
+
+        // Download
+        try {
+          const link = document.createElement("a");
+          link.href = canvas.toDataURL("image/png");
+          link.download = "મારો-ફોટો.png";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+        } catch (error) {
+          console.error("Canvas export error:", error);
+          alert("Download failed due to browser security restrictions! Please run this project using a local server (e.g., VS Code 'Live Server' extension) instead of just opening the file directly.");
+        }
+      }
+    };
+
+    bg.onload = checkDependencies;
+    bg.onerror = () => { console.error("Failed to load background"); checkDependencies(); };
+    logo.onload = checkDependencies;
+    logo.onerror = () => { console.error("Failed to load logo"); checkDependencies(); };
+    userImg.onload = checkDependencies;
+    userImg.onerror = () => { console.error("Failed to load user image"); checkDependencies(); };
+
+    bg.src = "images/bg.jpg";
+    logo.src = "images/logo.png";
+    userImg.src = e.target.result;
+  }
+
+  reader.readAsDataURL(file);
+}
+</script>
+
+</body>
+</html>
